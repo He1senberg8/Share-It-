@@ -108,85 +108,102 @@ export default function Signal() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4 font-sans text-slate-100 selection:bg-indigo-500/30">
-      
-      {/* Decorative Glow Backdrops */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="relative w-full max-w-md bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 shadow-2xl rounded-2xl p-6 overflow-hidden flex flex-col gap-5">
+    <div 
+      className="min-h-screen bg-black flex flex-col justify-center items-center p-4 font-sans text-neutral-200 selection:bg-neutral-850 selection:text-white"
+      style={{
+        backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px)',
+        backgroundSize: '24px 24px'
+      }}
+    >
+      <div className="relative w-full max-w-lg bg-[#0a0a0a] border border-neutral-800 shadow-[0_24px_80px_rgba(0,0,0,0.8),0_0_1px_rgba(255,255,255,0.1)] rounded-xl p-8 overflow-hidden flex flex-col gap-6">
         
         {/* Header */}
-        <div className="flex justify-between items-center border-b border-slate-800/60 pb-4">
+        <div className="flex justify-between items-center border-b border-neutral-800/80 pb-5">
           <div className="flex flex-col">
-            <h1 className="text-xl font-bold bg-linear-to-r from-violet-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent tracking-wide">
+            <h1 className="text-2xl font-extrabold text-white tracking-tight">
               NexusShare
             </h1>
-            <p className="text-xs text-slate-400">Workspace Signalling Panel</p>
+            <p className="text-xs text-neutral-400 font-mono tracking-widest uppercase mt-1">
+              Signalling Panel
+            </p>
           </div>
 
           {/* Status Badge */}
-          <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold transition-all duration-300 border ${
+          <div className={`flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-mono font-bold tracking-wider transition-all duration-300 border ${
             isConnected 
-              ? 'bg-emerald-950/30 text-emerald-400 border-emerald-800/50' 
-              : 'bg-slate-850 text-slate-400 border-slate-800'
+              ? 'bg-neutral-900 text-white border-neutral-700' 
+              : 'bg-black/40 text-neutral-500 border-neutral-850'
           }`}>
-            <span className="relative flex h-2 w-2">
-              {isConnected && (
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative flex h-2.5 w-2.5">
+              {isConnected ? (
+                <>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+                </>
+              ) : (
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 border border-neutral-600 bg-transparent"></span>
               )}
-              <span className={`relative inline-flex rounded-full h-2 w-2 ${
-                isConnected ? 'bg-emerald-500' : 'bg-slate-500'
-              }`}></span>
             </span>
-            {isConnected ? 'Active' : 'Offline'}
+            {isConnected ? 'ONLINE' : 'OFFLINE'}
           </div>
         </div>
 
         {/* Room Connection Bar */}
-        <div className="flex flex-col gap-2">
-          <label className="text-xs font-medium text-slate-400 uppercase tracking-wider">Room Configuration</label>
-          <div className="flex gap-2">
+        <div className="flex flex-col gap-3">
+          <label className="text-xs font-bold text-neutral-300 uppercase tracking-widest font-mono">
+            Room Configuration
+          </label>
+          <div className="flex gap-3">
             <div className="relative flex-1">
-              <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 pointer-events-none">#</span>
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-neutral-500 font-mono text-sm pointer-events-none">#</span>
               <input 
                 type="text" 
                 value={roomId} 
                 onChange={(e) => setRoomId(e.target.value)}
                 disabled={isConnected}
-                className="pl-7 bg-slate-950/60 border border-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none text-slate-100 rounded-xl px-3 py-2 w-full transition-all duration-200 disabled:opacity-50 text-sm font-medium"
+                className="pl-8 bg-black/60 border border-neutral-800 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 outline-none text-white rounded-lg px-4 py-2.5 w-full transition-all duration-200 disabled:opacity-40 text-sm font-mono tracking-tight"
                 placeholder="Room ID"
               />
             </div>
             {isConnected ? (
               <button 
                 onClick={disconnectFromRoom} 
-                className="bg-slate-850 hover:bg-red-950/40 hover:text-red-400 hover:border-red-900/50 border border-slate-850 text-slate-300 font-medium px-5 py-2 rounded-xl active:scale-98 transition-all duration-200 text-sm cursor-pointer"
+                className="bg-transparent hover:bg-neutral-900 border border-neutral-850 hover:border-neutral-500 text-neutral-300 hover:text-white font-mono text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-lg transition-all duration-200 cursor-pointer active:scale-[0.97]"
               >
-                Leave
+                LEAVE
               </button>
             ) : (
               <button 
                 onClick={() => connectToRoom(roomId)} 
-                className="bg-linear-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-medium px-5 py-2 rounded-xl shadow-lg shadow-indigo-500/20 active:scale-98 transition-all duration-200 text-sm cursor-pointer"
+                className="bg-white hover:bg-neutral-200 border border-transparent text-black font-mono font-bold text-xs uppercase tracking-wider px-6 py-2.5 rounded-lg transition-all duration-200 cursor-pointer active:scale-[0.97] shadow-sm"
               >
-                Join
+                JOIN
               </button>
             )}
           </div>
         </div>
 
         {/* Chat / Messages Box */}
-        <div className="flex flex-col gap-2">
-          <label className="text-xs font-medium text-slate-400 uppercase tracking-wider">Live Stream</label>
-          <div className="border border-slate-800/80 h-60 overflow-y-auto p-4 bg-slate-950/40 rounded-xl space-y-3.5 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
+        <div className="flex flex-col gap-3">
+          <label className="text-xs font-bold text-neutral-300 uppercase tracking-widest font-mono">
+            Live Stream
+          </label>
+          <div className="border border-neutral-800/80 h-72 overflow-y-auto p-5 bg-black/40 rounded-xl space-y-4 scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-transparent">
             {messages.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-slate-500 gap-2">
-                <svg className="w-8 h-8 opacity-40 animate-pulse text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
-                <p className="text-xs font-medium tracking-wide">No messages or signalling events yet.</p>
-                {!isConnected && <p className="text-[10px] text-slate-600">Join a room to start streaming</p>}
+              <div className="h-full flex flex-col items-center justify-center text-neutral-500 gap-3">
+                <div className="w-10 h-10 rounded-full border border-neutral-800/60 flex items-center justify-center bg-neutral-950/40">
+                  <svg className="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm font-mono text-neutral-400 font-medium">Awaiting stream signals...</p>
+                  {!isConnected && (
+                    <p className="text-xs text-neutral-600 font-mono mt-1">
+                      [ Connect to room to receive logs ]
+                    </p>
+                  )}
+                </div>
               </div>
             ) : (
               messages.map((m, idx) => {
@@ -196,10 +213,10 @@ export default function Signal() {
 
                 return (
                   <div key={idx} className="flex flex-col items-start gap-1">
-                    <span className="text-[10px] text-slate-400 font-semibold font-mono px-1">
+                    <span className="text-xs font-semibold text-neutral-400 font-mono px-1">
                       {sender}
                     </span>
-                    <div className="bg-slate-800/80 border border-slate-700/50 text-slate-200 px-3.5 py-2 rounded-2xl rounded-tl-none text-sm max-w-[85%] wrap-break-word leading-relaxed shadow-sm">
+                    <div className="bg-neutral-900/60 border border-neutral-850 text-neutral-200 px-4 py-2.5 rounded-lg rounded-tl-none text-xs font-mono max-w-[85%] break-all leading-relaxed shadow-sm">
                       {text}
                     </div>
                   </div>
@@ -210,23 +227,23 @@ export default function Signal() {
         </div>
 
         {/* Input Bar */}
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <input 
             type="text" 
             value={inputText} 
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && sendChatMessage()}
             disabled={!isConnected}
-            className="bg-slate-950/60 border border-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none text-slate-100 rounded-xl px-4 py-2.5 flex-1 transition-all duration-200 disabled:opacity-40 text-sm"
-            placeholder={isConnected ? "Type message..." : "Join a room to type"}
+            className="bg-black border border-neutral-800 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 outline-none text-white rounded-lg px-4 py-3 flex-1 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed text-sm placeholder-neutral-600 font-sans"
+            placeholder={isConnected ? "Send message..." : "Join a room to stream messages"}
           />
           <button 
             onClick={sendChatMessage} 
             disabled={!isConnected || !inputText.trim()}
-            className="bg-indigo-650 hover:bg-indigo-600 disabled:bg-slate-850 disabled:text-slate-500 disabled:opacity-50 text-white font-semibold rounded-xl px-5 py-2.5 transition-all duration-200 flex items-center justify-center cursor-pointer disabled:cursor-not-allowed"
+            className="bg-white hover:bg-neutral-200 disabled:bg-neutral-950 disabled:border-neutral-900 disabled:text-neutral-800 border border-transparent text-black font-semibold rounded-lg px-5 py-3 transition-all duration-200 flex items-center justify-center cursor-pointer disabled:cursor-not-allowed active:scale-[0.97] shadow-md"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
           </button>
         </div>
