@@ -1,0 +1,13 @@
+# IDEs and Editors
+.idea/
+.vscode/
+*.iml
+*.iws
+*.swp
+*.swo
+
+# System Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
