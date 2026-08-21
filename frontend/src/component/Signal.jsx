@@ -236,7 +236,7 @@ export default function Signal() {
         <div className="flex justify-between items-center border-b border-slate-800/60 pb-5">
           <div className="flex flex-col gap-1">
             <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2 font-mono">
-              NEXUS_SHARE <span className="text-[10px] bg-slate-950 text-slate-400 border border-slate-850 px-2 py-0.5 rounded font-mono font-normal">v2.0.0</span>
+              SHARE_IT <span className="text-[10px] bg-slate-950 text-slate-400 border border-slate-850 px-2 py-0.5 rounded font-mono font-normal">v2.0.0</span>
             </h1>
             <p className="text-[10px] text-slate-500 uppercase tracking-widest">
               Direct Peer-to-Peer file sharing terminal

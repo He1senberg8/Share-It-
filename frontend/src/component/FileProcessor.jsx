@@ -44,9 +44,9 @@ export default function FileProcessor({
   // IndexedDB Helpers
   const initIndexedDB = () => {
     return new Promise((resolve, reject) => {
-      const deleteRequest = indexedDB.deleteDatabase('NexusShareDB');
+      const deleteRequest = indexedDB.deleteDatabase('ShareItDB');
       deleteRequest.onsuccess = () => {
-        const request = indexedDB.open('NexusShareDB', 1);
+        const request = indexedDB.open('ShareItDB', 1);
         request.onupgradeneeded = (e) => {
           const db = e.target.result;
           db.createObjectStore('chunks', { autoIncrement: true });
@@ -120,7 +120,7 @@ export default function FileProcessor({
         indexedDbInstance.current = null;
       }
       await new Promise((resolve) => {
-        const req = indexedDB.deleteDatabase('NexusShareDB');
+        const req = indexedDB.deleteDatabase('ShareItDB');
         req.onsuccess = () => resolve();
         req.onerror = () => resolve();
       });
